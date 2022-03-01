@@ -1,46 +1,23 @@
 <html>
     <script src="/howler.js"></script>
-    <script>
-        var sound = new Howl({
-          src: ['bell.mp3']
-        });
-    </script>
+    <script src="/routine.js"></script>
+
 
     <body>
 
     <script>
-        var bell = new Howl({
-             src: ['bell.mp3'],
-             volume: 0.4,
-        });
 
-        var routine = {
-          loop: true,
-          intervals: [20 * 1000, 5 * 1000]
-        };
+        var intervals = [
+          {duration: 10 * 1000, message: 'Work', mp3: 'bell2.mp3'},
+          {duration: 3 * 1000, message: 'Rest', mp3: 'bell.mp3'},
+        ]
 
-        function ringBell() {
-               console.log(new Date().toLocaleTimeString());
-               bell.play();
-        }
-
-        function getRoutineLength(r) {
-            return r.intervals.reduce((a, b) => a + b, 0);
-        }
-
-        function getRoutinePlayer(r) {
-          return function() {
-            var total = 0;
-            r.intervals.forEach((interval, i) => {
-                setTimeout(ringBell, total + interval);
-                total += interval;
-            });
-          };
-        }
-
-        setInterval(getRoutinePlayer(routine), getRoutineLength(routine));
+        var R = new Routine(intervals, 'bell2.mp3', true, 0.8, true, 1000);
 
     </script>
+
+    <button onclick="R.start()">Start</button><br>
+    <button onclick="R.stop()">Stop</button>
 
     </body>
 
